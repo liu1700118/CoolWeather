@@ -13,24 +13,24 @@ import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.Response;
 
-public class Main2Activity extends AppCompatActivity {
+public class Main3Activity extends AppCompatActivity {
     private TextView textView;
     private Button button;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main2);
-        this.textView=(TextView) findViewById(R.id.textView);
-        this.button=(Button) findViewById(R.id.button);
+        setContentView(R.layout.activity_main3);
+        this.textView=(TextView) findViewById(R.id.text);
+        this.button=(Button) findViewById(R.id.button2);
         this.button.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
-                Intent intent=new Intent(Main2Activity.this,Main3Activity.class);
+                Intent intent=new Intent(Main3Activity.this,MainActivity.class);
                 startActivity(intent);
             }
         });
-        String weatherUrl = "http://guolin.tech/api/china";
+        String weatherUrl = "http://guolin.tech/api/china/17";
         HttpUtil.sendOkHttpRequest(weatherUrl,new Callback(){
             @Override
             public void onFailure(Call call, IOException e) {

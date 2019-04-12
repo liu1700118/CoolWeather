@@ -23,7 +23,7 @@ import okhttp3.Response;
 public class Main2Activity extends AppCompatActivity {
 
 
-    
+
     private TextView textView;
     private Button button;
     private String[] data={"北京","浙江","安微"};

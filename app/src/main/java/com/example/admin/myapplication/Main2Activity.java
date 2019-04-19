@@ -28,7 +28,7 @@ public class Main2Activity extends AppCompatActivity {
 
     private TextView textView;
     private Button button;
-    private int[] pids=new int[ ]{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
+    private int[] pids=new int[]{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
     private String[] data={"北京","浙江","安微","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","",""};
     private ListView listview;
     @Override
@@ -46,6 +46,9 @@ public class Main2Activity extends AppCompatActivity {
            @Override
            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                Log.v("点击了哪一个",""+position+":"+Main2Activity.this.pids[position]+":"+Main2Activity.this.data[position]);
+               Intent intent=new Intent(Main2Activity.this,Main3Activity.class);
+               intent.putExtra("pid",Main2Activity.this.pids[position]);
+               startActivity(intent);
            }
        });
 
@@ -68,9 +71,7 @@ public class Main2Activity extends AppCompatActivity {
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 final String responseText = response.body().string();
-                String[] result = parseJSONObject(responseText);
-                Main2Activity.this.data = result;
-
+                parseJSONObject(responseText);
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
@@ -80,22 +81,20 @@ public class Main2Activity extends AppCompatActivity {
             }
         });
     }
-        private String[] parseJSONObject(String responseText) {
+        private void parseJSONObject(String responseText) {
             JSONArray jsonArray=null;
             try{
                 jsonArray=new JSONArray(responseText);
-                String[] result=new String[jsonArray.length()];
+//                String[] result=new String[jsonArray.length()];
                 for (int i=0;i<jsonArray.length();i++){
                     JSONObject jsonObject=null;
                     jsonObject=jsonArray.getJSONObject(i);
                     this.data[i]=jsonObject.getString("name");
                     this.pids[i]=jsonObject.getInt("id");
                 }
-                return result;
             }catch(JSONException e) {
                 e.printStackTrace();
             }
-            return null;
         }
     }
 

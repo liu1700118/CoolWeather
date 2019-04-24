@@ -16,13 +16,12 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
-import java.util.List;
 
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.Response;
 
-public class Main2Activity extends AppCompatActivity {
+public class ProvinceActivity extends AppCompatActivity {
 
 
 
@@ -45,9 +44,9 @@ public class Main2Activity extends AppCompatActivity {
        this.listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
            @Override
            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-               Log.v("点击了哪一个",""+position+":"+Main2Activity.this.pids[position]+":"+Main2Activity.this.data[position]);
-               Intent intent=new Intent(Main2Activity.this,Main3Activity.class);
-               intent.putExtra("pid",Main2Activity.this.pids[position]);
+               Log.v("点击了哪一个",""+position+":"+ProvinceActivity.this.pids[position]+":"+ProvinceActivity.this.data[position]);
+               Intent intent=new Intent(ProvinceActivity.this,CityActivity.class);
+               intent.putExtra("pid",ProvinceActivity.this.pids[position]);
                startActivity(intent);
            }
        });
@@ -55,7 +54,7 @@ public class Main2Activity extends AppCompatActivity {
         this.button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(Main2Activity.this, Main3Activity.class);
+                Intent intent = new Intent(ProvinceActivity.this, CityActivity.class);
                 startActivity(intent);
             }
         });

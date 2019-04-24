@@ -13,7 +13,7 @@ import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.Response;
 
-public class MainActivity extends AppCompatActivity {
+public class CountryActivity extends AppCompatActivity {
     private TextView textView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -14,7 +14,7 @@ import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.Response;
 
-public class Main3Activity extends AppCompatActivity {
+public class CityActivity extends AppCompatActivity {
     private TextView textView;
     private Button button;
 
@@ -30,7 +30,7 @@ public class Main3Activity extends AppCompatActivity {
         this.button.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
-                Intent intent=new Intent(Main3Activity.this,MainActivity.class);
+                Intent intent=new Intent(CityActivity.this,CountryActivity.class);
                 startActivity(intent);
             }
         });

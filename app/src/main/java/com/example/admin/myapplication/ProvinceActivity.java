@@ -28,12 +28,12 @@ public class ProvinceActivity extends AppCompatActivity {
     private TextView textView;
     private Button button;
     private int[] pids=new int[]{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
-    private String[] data={"北京","浙江","安微","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","",""};
+    private String[] data={"","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","",""};
     private ListView listview;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main2);
+        setContentView(R.layout.activity_province);
         this.textView = (TextView) findViewById(R.id.textView);
         this.button = (Button) findViewById(R.id.button);
         this.listview = (ListView) findViewById(R.id.listview);
@@ -42,22 +42,22 @@ public class ProvinceActivity extends AppCompatActivity {
         listview.setAdapter(adapter);
 
        this.listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-           @Override
-           public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-               Log.v("点击了哪一个",""+position+":"+ProvinceActivity.this.pids[position]+":"+ProvinceActivity.this.data[position]);
-               Intent intent=new Intent(ProvinceActivity.this,CityActivity.class);
-               intent.putExtra("pid",ProvinceActivity.this.pids[position]);
-               startActivity(intent);
-           }
-       });
-
-        this.button.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(ProvinceActivity.this, CityActivity.class);
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Log.v("点击了哪一个",""+position+":"+ProvinceActivity.this.pids[position]+":"+ProvinceActivity.this.data[position]);
+                Intent intent=new Intent(ProvinceActivity.this,CityActivity.class);
+                intent.putExtra("pid",ProvinceActivity.this.pids[position]);
                 startActivity(intent);
             }
         });
+
+//        this.button.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent = new Intent(ProvinceActivity.this, CityActivity.class);
+//                startActivity(intent);
+//            }
+//        });
 
         String weatherUrl = "http://guolin.tech/api/china";
         HttpUtil.sendOkHttpRequest(weatherUrl, new Callback() {

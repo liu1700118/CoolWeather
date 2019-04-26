@@ -46,7 +46,7 @@ public class CityActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Log.v("点击了哪一个",""+position+":"+CityActivity.this.cids[position]+":"+CityActivity.this.data[position]);
                 Intent intent=new Intent(CityActivity.this,CountryActivity.class);
-                intent.putExtra("cids",CityActivity.this.cids[position]);
+                intent.putExtra("cid",CityActivity.this.cids[position]);
                 intent.putExtra("pid",pid);
                 startActivity(intent);
             }

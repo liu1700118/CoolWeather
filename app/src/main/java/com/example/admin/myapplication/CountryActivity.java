@@ -24,6 +24,7 @@ public class CountryActivity extends AppCompatActivity {
     private int[] Coids=new int[]{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
     private String[] data={"","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","",""};
     private ListView listview;
+    private String[] weatherid={"","","","","","","","","","","","","","",""};
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,7 +43,7 @@ public class CountryActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Log.v("点击了哪一个",""+position+":"+CountryActivity.this.Coids[position]+":"+CountryActivity.this.data[position]);
                 Intent intent=new Intent(CountryActivity.this,WeatherActivity.class);
-                intent.putExtra("Coid",CountryActivity.this.Coids[position]);
+                intent.putExtra("wid",CountryActivity.this.weatherid[position]);
                 startActivity(intent);
             }
         });
@@ -77,6 +78,7 @@ public class CountryActivity extends AppCompatActivity {
                 jsonObject=jsonArray.getJSONObject(i);
                 this.data[i]=jsonObject.getString("name");
                 this.Coids[i]=jsonObject.getInt("id");
+                this.weatherid[i]=jsonObject.getString("weather_id");
             }
         }catch(JSONException e) {
             e.printStackTrace();

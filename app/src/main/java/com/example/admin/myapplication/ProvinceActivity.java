@@ -25,21 +25,17 @@ import okhttp3.Response;
 
 public class ProvinceActivity extends AppCompatActivity {
 
-//    private TextView textView;
-    private int[] cids=new int[]{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
+    private int cityid=0;
     private String currentlevel="province";
     private List<String> data2=new ArrayList<>();
     private int pid=0;
-
-    private int[] pids=new int[]{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
+    private List<Integer> pids=new ArrayList<>();
     private List<String> data=new ArrayList<>();
     private ListView listview;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_province);
-//        this.textView = (TextView) findViewById(R.id.textView);
-
         this.listview = (ListView) findViewById(R.id.listview);
 
         final ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, data);
@@ -49,13 +45,18 @@ public class ProvinceActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 //Log.v("点击了哪一个",""+position+":"+ProvinceActivity.this.pids[position]+":"+ProvinceActivity.this.data.get(position));
-                pid=ProvinceActivity.this.pids[position];
-                currentlevel="city";
-                try {
-                    getData(adapter);
-                } catch (IOException e) {
-                    e.printStackTrace();
+                if (currentlevel=="province"){
+                    pid=ProvinceActivity.this.pids.get(position);
+                    currentlevel="city";
+                    try {
+                        getData(adapter);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }else{
+
                 }
+
 //                Intent intent=new Intent(ProvinceActivity.this,CityActivity.class);
 //                intent.putExtra("pid",ProvinceActivity.this.pids[position]);
 //                if(currentlevel=="city"){
@@ -108,14 +109,7 @@ public class ProvinceActivity extends AppCompatActivity {
                     JSONObject jsonObject=null;
                     jsonObject=jsonArray.getJSONObject(i);
                     this.data.add(jsonObject.getString("name"));
-                    //this.pids[i]=jsonObject.getInt("id");
-
-                    if (currentlevel=="city"){
-                        this.cids[i]=jsonObject.getInt("id");
-                    }else{
-                        this.pids[i]=jsonObject.getInt("id");
-                    }
-
+                    this.pids.add(jsonObject.getInt("id"));
                 }
             }catch(JSONException e) {
                 e.printStackTrace();

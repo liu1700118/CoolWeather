@@ -25,12 +25,18 @@ import okhttp3.Response;
 
 public class ProvinceActivity extends AppCompatActivity {
 
+
+    public static final String PROVINCE = "province";
+    public static final String CITY = "city";
+    public static final String COUNTRY = "country";
     private int cityid=0;
-    private String currentlevel="province";
+    private String currentlevel=PROVINCE;
     private List<String> data2=new ArrayList<>();
     private int pid=0;
+    private String wid;
     private List<Integer> pids=new ArrayList<>();
     private List<String> data=new ArrayList<>();
+    private List<String> weatherId=new ArrayList<>();
     private ListView listview;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,24 +51,40 @@ public class ProvinceActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 //Log.v("点击了哪一个",""+position+":"+ProvinceActivity.this.pids[position]+":"+ProvinceActivity.this.data.get(position));
-                if (currentlevel=="province"){
+                if (currentlevel==PROVINCE){
                     pid=ProvinceActivity.this.pids.get(position);
-                    currentlevel="city";
+                    currentlevel= CITY;
                     try {
                         getData(adapter);
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
-                }else{
-
+                }else if(currentlevel== CITY){
+                    currentlevel=COUNTRY;
+                    cityid=ProvinceActivity.this.pids.get(position);
+                    try {
+                        getData(adapter);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }else if(currentlevel==COUNTRY){
+                    wid=ProvinceActivity.this.weatherId.get(position);
+                    try {
+                        getData(adapter);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    Intent intent=new Intent(ProvinceActivity.this,WeatherActivity.class);
+                    intent.putExtra("wid",ProvinceActivity.this.weatherId.get(position));
+                    startActivity(intent);
                 }
-
 //                Intent intent=new Intent(ProvinceActivity.this,CityActivity.class);
 //                intent.putExtra("pid",ProvinceActivity.this.pids[position]);
 //                if(currentlevel=="city"){
 //                    intent.putExtra("cid",cids[position]);
 //                }
 //                startActivity(intent);
+
             }
         });
 
@@ -74,8 +96,9 @@ public class ProvinceActivity extends AppCompatActivity {
     }
 
     private void getData(final ArrayAdapter<String> adapter) throws IOException {
-        String weatherUrl =currentlevel=="city"?"http://guolin.tech/api/china/"+pid:"http://guolin.tech/api/china";
-       // String weatherUrl =currentlevel=="city"?"http://guolin.tech/api/china/"+pid:"http://guolin.tech/api/china/"+pid+"/"+cid;
+            String weatherUrl =currentlevel==PROVINCE?"http://guolin.tech/api/china/":(currentlevel==CITY?"http://guolin.tech/api/china/"+pid:"http://guolin.tech/api/china/"+pid+"/"+cityid);
+
+
         //  String weatherUrl = "http://guolin.tech/api/china";
         HttpUtil.sendOkHttpRequest(weatherUrl, new Callback() {
 
@@ -102,6 +125,8 @@ public class ProvinceActivity extends AppCompatActivity {
     private void parseJSONObject(String responseText) {
             JSONArray jsonArray=null;
             this.data.clear();
+            this.pids.clear();
+            this.weatherId.clear();
             try{
                 jsonArray=new JSONArray(responseText);
 //                String[] result=new String[jsonArray.length()];
@@ -110,6 +135,9 @@ public class ProvinceActivity extends AppCompatActivity {
                     jsonObject=jsonArray.getJSONObject(i);
                     this.data.add(jsonObject.getString("name"));
                     this.pids.add(jsonObject.getInt("id"));
+                    if(jsonObject.has("weather_id")){
+                      this.weatherId.add(jsonObject.getString("weather_id"));
+                    }
                 }
             }catch(JSONException e) {
                 e.printStackTrace();

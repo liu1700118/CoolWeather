@@ -31,7 +31,6 @@ public class ProvinceActivity extends AppCompatActivity {
     public static final String COUNTRY = "country";
     private int cityid=0;
     private String currentlevel=PROVINCE;
-    private List<String> data2=new ArrayList<>();
     private int pid=0;
     private String wid;
     private List<Integer> pids=new ArrayList<>();

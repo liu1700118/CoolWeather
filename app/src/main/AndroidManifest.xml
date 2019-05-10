@@ -21,7 +21,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".CountryActivity" />
+        <!--<activity android:name=".CountryActivity" />-->
         <!--<activity android:name=".CityActivity" />-->
         <activity android:name=".WeatherActivity"></activity>
     </application>

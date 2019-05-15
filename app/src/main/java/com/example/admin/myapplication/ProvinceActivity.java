@@ -49,7 +49,7 @@ public class ProvinceActivity extends AppCompatActivity {
        this.listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                //Log.v("点击了哪一个",""+position+":"+ProvinceActivity.this.pids[position]+":"+ProvinceActivity.this.data.get(position));
+                Log.v("点击了哪一个",""+position+":"+ProvinceActivity.this.pids.get(position)+":"+ProvinceActivity.this.data.get(position));
                 if (currentlevel==PROVINCE){
                     pid=ProvinceActivity.this.pids.get(position);
                     currentlevel= CITY;
